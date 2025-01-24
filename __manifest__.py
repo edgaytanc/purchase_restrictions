@@ -11,9 +11,14 @@
     """,
     'depends': ['purchase'],
     'data': [
+        'views/purchase_menu_views.xml',
         'security/custom_restrictions_security.xml',
         'security/ir.model.access.csv',
         'views/purchase_order_views.xml',
+    ],
+    'update_xml': [],
+    'i18n': [
+        'i18n/es.po',
     ],
     'installable': True,
     'application': False,

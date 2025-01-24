@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, api
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
@@ -9,8 +9,8 @@ class PurchaseOrder(models.Model):
         res = super(PurchaseOrder, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
 
         # Verificar si el usuario pertenece al grupo Compra/Usuario Restringido
-        restricted_group = self.env.ref('purchase_restrictions.group_restricted_user')
-        if restricted_group in self.env.user.groups_id and view_type == 'form':
+        restricted_group = self.env.ref('purchase_restrictions.group_restricted_user', raise_if_not_found=False)
+        if restricted_group and restricted_group.id in self.env.user.groups_id.ids and view_type == 'form':
             doc = res['arch']
             # Ocultar campos de precios
             doc = doc.replace('<field name="price_unit"', '<field name="price_unit" invisible="1"')
@@ -21,8 +21,8 @@ class PurchaseOrder(models.Model):
     @api.model
     def create(self, vals):
         """ Restringir creación de órdenes de compra a 'Proveedor Interno' """
-        restricted_group = self.env.ref('purchase_restrictions.group_restricted_user')
-        if restricted_group in self.env.user.groups_id:
+        restricted_group = self.env.ref('purchase_restrictions.group_restricted_user', raise_if_not_found=False)
+        if restricted_group and restricted_group.id in self.env.user.groups_id.ids:
             internal_supplier = self.env['res.partner'].search([('name', '=', 'Proveedor Interno')], limit=1)
             if vals.get('partner_id') != internal_supplier.id:
                 raise ValueError("Solo puedes crear órdenes de compra con 'Proveedor Interno'.")

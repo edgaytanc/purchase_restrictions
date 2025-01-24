@@ -1,0 +1,11 @@
+#. module: purchase
+msgid "Purchase Order"
+msgstr "Solicitud de Insumos"
+
+#. module: purchase
+msgid "Request for Quotation"
+msgstr "Solicitudes de Insumos"
+
+#. module: purchase
+msgid "Orders"
+msgstr "Solicitudes"
