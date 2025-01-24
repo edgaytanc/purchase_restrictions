@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="purchase_restrictions_group" model="res.groups">
+            <field name="name">Usuario Restringido</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record id="purchase_order_line_rule" model="ir.rule">
+            <field name="name">Ocultar precios en líneas de pedido</field>
+            <field name="model_id" ref="model_purchase_order_line"/>
+            <field name="groups" eval="[(4, ref('purchase_restrictions_group'))]"/>
+            <field name="domain_force">
+                [('partner_id.name', '!=', 'Proveedor Interno')]
+            </field>
+            <field name="perm_read" eval="False"/>
+        </record>
+
+        <record id="res_partner_rule" model="ir.rule">
+            <field name="name">Mostrar solo Proveedor Interno</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="groups" eval="[(4, ref('purchase_restrictions_group'))]"/>
+            <field name="domain_force">
+                [('supplier_rank', '>', 0), ('name', '!=', 'Proveedor Interno')]
+            </field>
+            <field name="perm_read" eval="False"/>
+        </record>
+    </data>
+</odoo>
