@@ -2,16 +2,20 @@
     <data noupdate="1">
         <!-- Grupo para usuarios restringidos -->
         <record id="group_restricted_user" model="res.groups">
-            <field name="name">Compra/Usuario Restringido</field>
-            <field name="category_id" ref="base.module_category_purchases"/>
+            <field name="name">Usuario Restringido</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
         </record>
 
-        <!-- Regla de registro para restringir los proveedores -->
-        <record id="rule_restricted_supplier" model="ir.rule">
-            <field name="name">Proveedores restringidos</field>
-            <field name="model_id" ref="base.model_res_partner"/>
-            <field name="domain_force">[('name', '=', 'Proveedor Interno')]</field>
-            <field name="groups" eval="[(4, ref('purchase_restrictions.group_restricted_user'))]"/>
+        <!-- Grupo para usuarios no restringidos -->
+        <record id="group_no_restricted_user" model="res.groups">
+            <field name="name">Usuario No Restringido</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <!-- Definir el proveedor "Proveedor Interno" -->
+        <record id="supplier_interno" model="res.partner">
+            <field name="name">Proveedor Interno</field>
+            <field name="supplier_rank">1</field>
         </record>
     </data>
 </odoo>

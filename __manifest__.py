@@ -1,7 +1,7 @@
 {
     'name': 'Restricciones en Compras',
     'version': '1.0',
-    'author': 'Tu Nombre',
+    'author': 'David Gaytan',
     'category': 'Purchases',
     'summary': 'Restricciones personalizadas para usuarios en el módulo de compras',
     'description': """
@@ -11,14 +11,11 @@
     """,
     'depends': ['purchase'],
     'data': [
-        'views/purchase_menu_views.xml',
         'security/custom_restrictions_security.xml',
         'security/ir.model.access.csv',
         'views/purchase_order_views.xml',
-    ],
-    'update_xml': [],
-    'i18n': [
-        'i18n/es.po',
+        'views/purchase_order_views_no_restricted.xml',
+        
     ],
     'installable': True,
     'application': False,

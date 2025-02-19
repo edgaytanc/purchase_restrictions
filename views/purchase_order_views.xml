@@ -4,14 +4,39 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
+
+            <!-- <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="partner_id" invisible="1"/>
+            </xpath> -->
+            <!-- <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                <attribute name="groups">purchase_restrictions.group_restricted_user</attribute>
+            </xpath> -->
+
+            <!-- Ocultar precios para el grupo "Usuario Restringido" -->
             <xpath expr="//field[@name='price_unit']" position="attributes">
                 <attribute name="invisible">1</attribute>
+                <attribute name="groups">purchase_restrictions.group_restricted_user</attribute>
             </xpath>
             <xpath expr="//field[@name='price_subtotal']" position="attributes">
                 <attribute name="invisible">1</attribute>
+                <attribute name="groups">purchase_restrictions.group_restricted_user</attribute>
             </xpath>
+
+            <!-- Restringir proveedor a "Proveedor Interno" -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="partner_id" readonly="1"/> 
+            </xpath>
+
+            <!-- Asegurarse de que no haya expresiones inválidas -->
             <xpath expr="//field[@name='partner_id']" position="attributes">
-                <attribute name="domain">[('name', '=', 'Proveedor Interno')]</attribute>
+                <attribute name="invisible">0</attribute>
+                <attribute name="required">1</attribute>
+            </xpath>
+
+            <!-- Eliminar el contexto que causa el error -->
+            <xpath expr="//button[@name='action_rfq_send']" position="attributes">
+                <attribute name="context">{'send_rfq': True}</attribute>
             </xpath>
         </field>
     </record>

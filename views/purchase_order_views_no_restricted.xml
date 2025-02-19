@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_purchase_order_no_restricted_user" model="ir.ui.view">
+        <field name="name">purchase.order.form.no.restricted.user</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="partner_id" invisible="1"/>   
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="groups">purchase_restrictions.group_no_restricted_user</attribute>
+            </xpath>
+
+            <!-- Ocultar precios para el grupo "Usuario Restringido" -->
+            <xpath expr="//field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="groups">purchase_restrictions.group_no_restricted_user</attribute>
+            </xpath>
+            <xpath expr="//field[@name='price_subtotal']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="groups">purchase_restrictions.group_no_restricted_user</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

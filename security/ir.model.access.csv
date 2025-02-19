@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_purchase_order_restricted_user,purchase.order,model_purchase_order,purchase_restrictions.group_restricted_user,1,0,0,0
+access_purchase_order_restricted_user,purchase.order.restricted.user,model_purchase_order,purchase_restrictions.group_restricted_user,1,1,1,1
+access_purchase_order_no_restricted_user,purchase.order.no.restricted.user,model_purchase_order,purchase_restrictions.group_no_restricted_user,1,1,1,1
